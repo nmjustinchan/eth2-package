@@ -83,12 +83,7 @@ network_params:
   samples_per_slot: 8
   custody_requirement: 4
   max_blobs_per_block: 6
-  additional_preloaded_contracts:
-    "0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02":
-      balance: "0"
-      code: "0x60618060095f395ff33373fffffffffffffffffffffffffffffffffffffffe14604d57602036146024575f5ffd5b5f35801560495762001fff810690815414603c575f5ffd5b62001fff01545f5260205ff35b5f5ffd5b62001fff42064281555f359062001fff015500"
-      storage: {}
-      nonce: 0
+  additional_preloaded_contracts: {}
   devnet_repo: ethpandaops
   prefunded_accounts: {}
 additional_services:
