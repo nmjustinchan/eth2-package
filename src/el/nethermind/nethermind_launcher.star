@@ -5,7 +5,6 @@ el_admin_node_info = import_module("../../el/el_admin_node_info.star")
 el_shared = import_module("../el_shared.star")
 node_metrics = import_module("../../node_metrics_info.star")
 constants = import_module("../../package_io/constants.star")
-json = import_module("encoding/json")
 
 # The dirpath of the execution data directory on the client container
 EXECUTION_DATA_DIRPATH_ON_CLIENT_CONTAINER = "/data/nethermind/execution-data"
@@ -205,16 +204,21 @@ def get_config(
         "--Metrics.ExposeHost=0.0.0.0",
     ]
 
-    if constants.NETWORK_NAME.shadowfork in network or network not in constants.PUBLIC_NETWORKS:
-        modified_chainspec_artifact = modify_chainspec(plan, el_cl_genesis_data.files_artifact_uuid)
-        chainspec_path = constants.GENESIS_CONFIG_MOUNT_PATH_ON_CONTAINER + "/chainspec.json"
-        cmd.append("--Init.ChainSpecPath=" + chainspec_path)
-
-        if constants.NETWORK_NAME.shadowfork in network:
-            cmd.append("--config=" + network.split("-")[0])
-            cmd.append("--Init.BaseDbPath=" + network.split("-")[0])
-        else:
-            cmd.append("--config=none.cfg")
+    if constants.NETWORK_NAME.shadowfork in network:
+        cmd.append(
+            "--Init.ChainSpecPath="
+            + constants.GENESIS_CONFIG_MOUNT_PATH_ON_CONTAINER
+            + "/chainspec.json"
+        )
+        cmd.append("--config=" + network.split("-")[0])
+        cmd.append("--Init.BaseDbPath=" + network.split("-")[0])
+    elif network not in constants.PUBLIC_NETWORKS:
+        cmd.append("--config=none.cfg")
+        cmd.append(
+            "--Init.ChainSpecPath="
+            + constants.GENESIS_CONFIG_MOUNT_PATH_ON_CONTAINER
+            + "/chainspec.json"
+        )
     else:
         cmd.append("--config=" + network)
 
@@ -248,7 +252,7 @@ def get_config(
         cmd.extend([param for param in extra_params])
 
     files = {
-        constants.GENESIS_DATA_MOUNTPOINT_ON_CLIENTS: modified_chainspec_artifact if 'modified_chainspec_artifact' in locals() else el_cl_genesis_data.files_artifact_uuid,
+        constants.GENESIS_DATA_MOUNTPOINT_ON_CLIENTS: el_cl_genesis_data.files_artifact_uuid,
         constants.JWT_MOUNTPOINT_ON_CLIENTS: jwt_file,
     }
 
@@ -280,15 +284,6 @@ def get_config(
         tolerations=tolerations,
         node_selectors=node_selectors,
     )
-
-
-def modify_chainspec(plan, chainspec_artifact_uuid):
-    modified_chainspec = plan.read_file(chainspec_artifact_uuid, "/chainspec.json")
-    chainspec_json = json.decode(modified_chainspec)
-    chainspec_json["params"]["eip2537TransitionTimestamp"] = "0x0"
-    modified_chainspec = json.encode(chainspec_json)
-    return plan.upload_files("modified_chainspec", {"/chainspec.json": modified_chainspec})
-
 
 def new_nethermind_launcher(el_cl_genesis_data, jwt_file, network):
     return struct(
