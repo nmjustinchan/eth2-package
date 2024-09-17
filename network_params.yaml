@@ -154,14 +154,14 @@ checkpoint_sync_url: ""
 port_publisher:
   nat_exit_ip: KURTOSIS_IP_ADDR_PLACEHOLDER
   el:
-    enabled: false
+    enabled: true
     public_port_start: 32000
   cl:
-    enabled: false
+    enabled: true
     public_port_start: 33000
   vc:
-    enabled: false
+    enabled: true
     public_port_start: 34000
   additional_services:
-    enabled: false
+    enabled: true
     public_port_start: 35000
