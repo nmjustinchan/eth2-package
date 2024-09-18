@@ -1,5 +1,3 @@
-load("@stdlib//shutil:shutil.bzl", "copytree")
-
 constants = import_module("../package_io/constants.star")
 input_parser = import_module("../package_io/input_parser.star")
 shared_utils = import_module("../shared_utils/shared_utils.star")
@@ -54,14 +52,14 @@ def get_config(
         constants.VALIDATOR_KEYS_DIRPATH_ON_SERVICE_CONTAINER,
         node_keystore_files.raw_secrets_relative_dirpath,
     )
+    local_validator_keys_dirpath = "/local/root/validator_keys_" + str(vc_index)
+    local_validator_secrets_dirpath = "/local/root/validator_secrets_" + str(vc_index)
 
     # Copy validator_keys_dirpath to local root dir with vc_index
-    local_validator_keys_dirpath = "/local/root/validator_keys_" + str(vc_index)
-    copytree(validator_keys_dirpath, local_validator_keys_dirpath)
+    os.system("cp -r " + validator_keys_dirpath + " " + local_validator_keys_dirpath)
 
     # Copy validator_secrets_dirpath to local root dir with vc_index
-    local_validator_secrets_dirpath = "/local/root/validator_secrets_" + str(vc_index)
-    copytree(validator_secrets_dirpath, local_validator_secrets_dirpath)
+    os.system("cp -r " + validator_secrets_dirpath + " " + local_validator_secrets_dirpath)
 
     cmd = [
         "lighthouse",
