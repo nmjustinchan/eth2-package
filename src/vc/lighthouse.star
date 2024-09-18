@@ -44,6 +44,7 @@ def get_config(
         participant_log_level, global_log_level, VERBOSITY_LEVELS
     )
 
+    # Define the source and destination paths
     validator_keys_dirpath = shared_utils.path_join(
         constants.VALIDATOR_KEYS_DIRPATH_ON_SERVICE_CONTAINER,
         node_keystore_files.raw_keys_relative_dirpath,
@@ -52,35 +53,28 @@ def get_config(
         constants.VALIDATOR_KEYS_DIRPATH_ON_SERVICE_CONTAINER,
         node_keystore_files.raw_secrets_relative_dirpath,
     )
-    local_validator_keys_dirpath = "/local/root/validator_keys_" + str(vc_index)
-    local_validator_secrets_dirpath = "/local/root/validator_secrets_" + str(vc_index)
+    local_validator_keys_dirpath = "/root/validator_keys_" + str(vc_index)
+    local_validator_secrets_dirpath = "/root/validator_secrets_" + str(vc_index)
 
-    # Copy validator_keys_dirpath to local root dir with vc_index
-    os.system("cp -r " + validator_keys_dirpath + " " + local_validator_keys_dirpath)
+    # Construct the copy commands
+    copy_keys_cmd = "cp -r " + validator_keys_dirpath + " " + local_validator_keys_dirpath
+    copy_secrets_cmd = "cp -r " + validator_secrets_dirpath + " " + local_validator_secrets_dirpath
 
-    # Copy validator_secrets_dirpath to local root dir with vc_index
-    os.system("cp -r " + validator_secrets_dirpath + " " + local_validator_secrets_dirpath)
-
+    # Construct the lighthouse command
     cmd = [
-        "lighthouse",
+        copy_keys_cmd + " && " + copy_secrets_cmd + " && lighthouse",
         "vc",
         "--debug-level=" + log_level,
         "--testnet-dir=" + constants.GENESIS_CONFIG_MOUNT_PATH_ON_CONTAINER,
         "--validators-dir=" + validator_keys_dirpath,
-        # NOTE: When secrets-dir is specified, we can't add the --data-dir flag
         "--secrets-dir=" + validator_secrets_dirpath,
-        # The node won't have a slashing protection database and will fail to start otherwise
         "--init-slashing-protection",
         "--beacon-nodes=" + beacon_http_url,
-        # "--enable-doppelganger-protection", // Disabled to not have to wait 2 epochs before validator can start
-        # burn address - If unset, the validator will scream in its logs
         "--suggested-fee-recipient=" + constants.VALIDATING_REWARDS_ACCOUNT,
-        # vvvvvvvvvvvvvvvvvvv PROMETHEUS CONFIG vvvvvvvvvvvvvvvvvvvvv
         "--metrics",
         "--metrics-address=0.0.0.0",
         "--metrics-allow-origin=*",
         "--metrics-port={0}".format(vc_shared.VALIDATOR_CLIENT_METRICS_PORT_NUM),
-        # ^^^^^^^^^^^^^^^^^^^ PROMETHEUS CONFIG ^^^^^^^^^^^^^^^^^^^^^
         "--graffiti=" + full_name,
     ]
 
