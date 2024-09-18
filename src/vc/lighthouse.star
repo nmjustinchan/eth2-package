@@ -53,8 +53,8 @@ def get_config(
         constants.VALIDATOR_KEYS_DIRPATH_ON_SERVICE_CONTAINER,
         node_keystore_files.raw_secrets_relative_dirpath,
     )
-    local_validator_keys_dirpath = "/root/validator_keys_" + str(vc_index)
-    local_validator_secrets_dirpath = "/root/validator_secrets_" + str(vc_index)
+    local_validator_keys_dirpath = "/root/validator_keys_" + vc_index
+    local_validator_secrets_dirpath = "/root/validator_secrets_" + vc_index
 
     # Construct the copy commands
     copy_keys_cmd = "cp -r " + validator_keys_dirpath + " " + local_validator_keys_dirpath
