@@ -1,3 +1,5 @@
+import shutil
+
 constants = import_module("../package_io/constants.star")
 input_parser = import_module("../package_io/input_parser.star")
 shared_utils = import_module("../shared_utils/shared_utils.star")
@@ -52,6 +54,14 @@ def get_config(
         constants.VALIDATOR_KEYS_DIRPATH_ON_SERVICE_CONTAINER,
         node_keystore_files.raw_secrets_relative_dirpath,
     )
+
+    # Copy validator_keys_dirpath to local root dir with vc_index
+    local_validator_keys_dirpath = f"/local/root/validator_keys_{vc_index}"
+    shutil.copytree(validator_keys_dirpath, local_validator_keys_dirpath)
+
+    # Copy validator_secrets_dirpath to local root dir with vc_index
+    local_validator_secrets_dirpath = f"/local/root/validator_secrets_{vc_index}"
+    shutil.copytree(validator_secrets_dirpath, local_validator_secrets_dirpath)
 
     cmd = [
         "lighthouse",
