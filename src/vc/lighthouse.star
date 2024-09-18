@@ -60,14 +60,13 @@ def get_config(
     copy_keys_cmd = "cp -r " + validator_keys_dirpath + " " + local_validator_keys_dirpath
     copy_secrets_cmd = "cp -r " + validator_secrets_dirpath + " " + local_validator_secrets_dirpath
 
-    # Debugging: Print the commands to ensure they are correct
-    print("Copy keys command:", copy_keys_cmd)
-    print("Copy secrets command:", copy_secrets_cmd)
-
     # Construct the lighthouse command
     cmd = [
-        copy_keys_cmd + " && " + copy_secrets_cmd + " && lighthouse",
-        "vc",
+        "sh", "-c",  # Use a shell to execute the combined command
+        copy_keys_cmd + " && " + copy_secrets_cmd + " && lighthouse vc"
+    ]
+
+    lighthouse_cmd = [
         "--debug-level=" + log_level,
         "--testnet-dir=" + constants.GENESIS_CONFIG_MOUNT_PATH_ON_CONTAINER,
         "--validators-dir=" + validator_keys_dirpath,
@@ -91,7 +90,9 @@ def get_config(
     ]
 
     if len(extra_params):
-        cmd.extend([param for param in extra_params])
+        lighthouse_cmd.extend([param for param in extra_params])
+
+    cmd.extend(lighthouse_cmd)
 
     files = {
         constants.GENESIS_DATA_MOUNTPOINT_ON_CLIENTS: el_cl_genesis_data.files_artifact_uuid,
@@ -118,7 +119,7 @@ def get_config(
     ports.update(vc_shared.VALIDATOR_CLIENT_USED_PORTS)
 
     if keymanager_enabled:
-        cmd.extend(keymanager_api_cmd)
+        lighthouse_cmd.extend(keymanager_api_cmd)
         ports.update(vc_shared.VALIDATOR_KEYMANAGER_USED_PORTS)
         public_ports.update(
             shared_utils.get_port_specs(public_keymanager_port_assignment)
