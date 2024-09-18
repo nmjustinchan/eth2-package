@@ -1,4 +1,4 @@
-import shutil
+load("@stdlib//shutil:shutil.bzl", "copytree")
 
 constants = import_module("../package_io/constants.star")
 input_parser = import_module("../package_io/input_parser.star")
@@ -56,12 +56,12 @@ def get_config(
     )
 
     # Copy validator_keys_dirpath to local root dir with vc_index
-    local_validator_keys_dirpath = f"/local/root/validator_keys_{vc_index}"
-    shutil.copytree(validator_keys_dirpath, local_validator_keys_dirpath)
+    local_validator_keys_dirpath = "/local/root/validator_keys_" + str(vc_index)
+    copytree(validator_keys_dirpath, local_validator_keys_dirpath)
 
     # Copy validator_secrets_dirpath to local root dir with vc_index
-    local_validator_secrets_dirpath = f"/local/root/validator_secrets_{vc_index}"
-    shutil.copytree(validator_secrets_dirpath, local_validator_secrets_dirpath)
+    local_validator_secrets_dirpath = "/local/root/validator_secrets_" + str(vc_index)
+    copytree(validator_secrets_dirpath, local_validator_secrets_dirpath)
 
     cmd = [
         "lighthouse",
