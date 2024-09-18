@@ -148,7 +148,7 @@ xatu_sentry_params:
 apache_port: 40000
 global_tolerations: []
 global_node_selectors: {}
-keymanager_enabled: false
+keymanager_enabled: true
 checkpoint_sync_enabled: false
 checkpoint_sync_url: ""
 port_publisher:
