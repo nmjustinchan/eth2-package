@@ -61,8 +61,8 @@ def get_config(
     copy_secrets_cmd = "cp -r " + validator_secrets_dirpath + " " + local_validator_secrets_dirpath
 
     # Debugging: Print the commands to ensure they are correct
-    plan.print("Copy keys command:", copy_keys_cmd)
-    plan.print("Copy secrets command:", copy_secrets_cmd)
+    print("Copy keys command:", copy_keys_cmd)
+    print("Copy secrets command:", copy_secrets_cmd)
 
     # Construct the lighthouse command
     cmd = [
