@@ -202,7 +202,9 @@ def launch_participant_network(
         vc_type = participant.vc_type
         index_str = shared_utils.zfill_custom(index + 1, len(str(len(participants))))
         for sub_index in range(participant.vc_count):
-            vc_index_str = str(sub_index + 1)
+            vc_index_str = shared_utils.zfill_custom(
+                sub_index + 1, len(str(participant.vc_count))
+            )
             el_context = all_el_contexts[index]
             cl_context = all_cl_contexts[index]
 
@@ -326,7 +328,7 @@ def launch_participant_network(
                     "-" + vc_index_str if participant.vc_count != 1 else "",
                 )
                 if participant.cl_type != participant.vc_type
-                else "{0}-{1}-{2}".format(
+                else "{0}-{1}-{2}{3}".format(
                     index_str,
                     el_type,
                     cl_type,
