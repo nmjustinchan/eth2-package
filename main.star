@@ -661,11 +661,11 @@ def run(plan, args={}):
             NUM_MIN_MINORITY_GUARDIANS=2
             TIER_PROVIDER="devnet"
             taiko = plan.run_sh(
-                run = "mkdir -p kurtosis && echo $(ls)",
-                name = "curl-job"
-                image = "badouralix/curl-jq",
-                wait = None,
-                description = "running sh script",
+                run="mkdir -p kurtosis && echo $(ls)",
+                name="curl-job"
+                image="nethswitchboard/taiko-deploy:e2e",
+                wait=None,
+                description="running sh script",
             )
             #     name="deploy-taiko-contract",
             #     description="Deploying taiko smart contract",
