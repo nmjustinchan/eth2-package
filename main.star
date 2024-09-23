@@ -661,36 +661,42 @@ def run(plan, args={}):
             NUM_MIN_MINORITY_GUARDIANS=2
             TIER_PROVIDER="devnet"
             taiko = plan.run_sh(
-                name="deploy-taiko-contract",
-                description="Deploying taiko smart contract",
-                run="script/test_deploy_on_l1.sh",
-                image=taiko_params.taiko_deploy_image,
-                env_vars = {
-                    "PRIVATE_KEY": PRIVATE_KEY,
-                    "FORK_URL": fuzz_target,
-                    "PROPOSER": PROPOSER,
-                    "TAIKO_TOKEN": TAIKO_TOKEN,
-                    "PROPOSER_ONE": PROPOSER_ONE,
-                    "GUARDIAN_PROVERS": GUARDIAN_PROVERS,
-                    "TAIKO_L2_ADDRESS": TAIKO_L2_ADDRESS,
-                    "L2_SIGNAL_SERVICE": L2_SIGNAL_SERVICE,
-                    "CONTRACT_OWNER": CONTRACT_OWNER,
-                    "PROVER_SET_ADMIN": PROVER_SET_ADMIN,
-                    "TAIKO_TOKEN_PREMINT_RECIPIENT": TAIKO_TOKEN_PREMINT_RECIPIENT,
-                    "TAIKO_TOKEN_NAME": TAIKO_TOKEN_NAME,
-                    "TAIKO_TOKEN_SYMBOL": TAIKO_TOKEN_SYMBOL,
-                    "SHARED_ADDRESS_MANAGER": SHARED_ADDRESS_MANAGER,
-                    "L2_GENESIS_HASH": L2_GENESIS_HASH,
-                    "PAUSE_TAIKO_L1": PAUSE_TAIKO_L1,
-                    "PAUSE_BRIDGE": PAUSE_BRIDGE,
-                    "NUM_MIN_MAJORITY_GUARDIANS": NUM_MIN_MAJORITY_GUARDIANS,
-                    "NUM_MIN_MINORITY_GUARDIANS": NUM_MIN_MINORITY_GUARDIANS,
-                    "TIER_PROVIDER": TIER_PROVIDER,
-                },
-                wait=None,
+                run = "mkdir -p kurtosis && echo $(ls)",
+                name = "curl-job"
+                image = "badouralix/curl-jq",
+                wait="180s"
+                description = "running sh script"
             )
-            plan.print("test")
-            plan.print(taiko.output)
+            #     name="deploy-taiko-contract",
+            #     description="Deploying taiko smart contract",
+            #     run="script/test_deploy_on_l1.sh",
+            #     image=taiko_params.taiko_deploy_image,
+            #     env_vars = {
+            #         "PRIVATE_KEY": PRIVATE_KEY,
+            #         "FORK_URL": fuzz_target,
+            #         "PROPOSER": PROPOSER,
+            #         "TAIKO_TOKEN": TAIKO_TOKEN,
+            #         "PROPOSER_ONE": PROPOSER_ONE,
+            #         "GUARDIAN_PROVERS": GUARDIAN_PROVERS,
+            #         "TAIKO_L2_ADDRESS": TAIKO_L2_ADDRESS,
+            #         "L2_SIGNAL_SERVICE": L2_SIGNAL_SERVICE,
+            #         "CONTRACT_OWNER": CONTRACT_OWNER,
+            #         "PROVER_SET_ADMIN": PROVER_SET_ADMIN,
+            #         "TAIKO_TOKEN_PREMINT_RECIPIENT": TAIKO_TOKEN_PREMINT_RECIPIENT,
+            #         "TAIKO_TOKEN_NAME": TAIKO_TOKEN_NAME,
+            #         "TAIKO_TOKEN_SYMBOL": TAIKO_TOKEN_SYMBOL,
+            #         "SHARED_ADDRESS_MANAGER": SHARED_ADDRESS_MANAGER,
+            #         "L2_GENESIS_HASH": L2_GENESIS_HASH,
+            #         "PAUSE_TAIKO_L1": PAUSE_TAIKO_L1,
+            #         "PAUSE_BRIDGE": PAUSE_BRIDGE,
+            #         "NUM_MIN_MAJORITY_GUARDIANS": NUM_MIN_MAJORITY_GUARDIANS,
+            #         "NUM_MIN_MINORITY_GUARDIANS": NUM_MIN_MINORITY_GUARDIANS,
+            #         "TIER_PROVIDER": TIER_PROVIDER,
+            #     },
+            #     wait=None,
+            # )
+            # plan.print("test")
+            # plan.print(taiko.output)
             # Launch taiko stack
             # taiko_stack.launch(
 
