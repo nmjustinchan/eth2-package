@@ -636,11 +636,61 @@ def run(plan, args={}):
         elif additional_service == "taiko_stack":
             plan.print("Launching taiko")
             # Deploy taiko smart contracts
-            taiko_contract_deployer.deploy(
-                plan,
-                taiko_params,
-                fuzz_target,
+            # taiko_contract_deployer.deploy(
+            #     plan,
+            #     taiko_params,
+            #     fuzz_target,
+            # )
+            PRIVATE_KEY=0xbcdf20249abf0ed6d944c0288fad489e33f66b3960d9e6229c1cd214ed3bbe31
+            PROPOSER=0x0000000000000000000000000000000000000000
+            TAIKO_TOKEN=0x0000000000000000000000000000000000000000
+            PROPOSER_ONE=0x0000000000000000000000000000000000000000
+            GUARDIAN_PROVERS=0x1000777700000000000000000000000000000001,0x1000777700000000000000000000000000000002,0x1000777700000000000000000000000000000003,0x1000777700000000000000000000000000000004
+            TAIKO_L2_ADDRESS=0x1670000000000000000000000000000000010001
+            L2_SIGNAL_SERVICE=0x1670000000000000000000000000000000000005
+            CONTRACT_OWNER=0x8943545177806ED17B9F23F0a21ee5948eCaa776
+            PROVER_SET_ADMIN=0x8943545177806ED17B9F23F0a21ee5948eCaa776
+            TAIKO_TOKEN_PREMINT_RECIPIENT=0x8943545177806ED17B9F23F0a21ee5948eCaa776
+            TAIKO_TOKEN_NAME="Taiko Token"
+            TAIKO_TOKEN_SYMBOL="TKO"
+            SHARED_ADDRESS_MANAGER=0x0000000000000000000000000000000000000000
+            L2_GENESIS_HASH=0x7983c69e31da54b8d244d8fef4714ee7a8ed25d873ebef204a56f082a73c9f1e
+            PAUSE_TAIKO_L1=False
+            PAUSE_BRIDGE=True
+            NUM_MIN_MAJORITY_GUARDIANS=7
+            NUM_MIN_MINORITY_GUARDIANS=2
+            TIER_PROVIDER="devnet"
+            taiko = plan.run_sh(
+                name="deploy-taiko-contract",
+                description="Deploying taiko smart contract",
+                run="script/test_deploy_on_l1.sh",
+                image=taiko_params.taiko_deploy_image,
+                env_vars = {
+                    "PRIVATE_KEY": PRIVATE_KEY,
+                    "FORK_URL": fuzz_target,
+                    "PROPOSER": PROPOSER,
+                    "TAIKO_TOKEN": TAIKO_TOKEN,
+                    "PROPOSER_ONE": PROPOSER_ONE,
+                    "GUARDIAN_PROVERS": GUARDIAN_PROVERS,
+                    "TAIKO_L2_ADDRESS": TAIKO_L2_ADDRESS,
+                    "L2_SIGNAL_SERVICE": L2_SIGNAL_SERVICE,
+                    "CONTRACT_OWNER": CONTRACT_OWNER,
+                    "PROVER_SET_ADMIN": PROVER_SET_ADMIN,
+                    "TAIKO_TOKEN_PREMINT_RECIPIENT": TAIKO_TOKEN_PREMINT_RECIPIENT,
+                    "TAIKO_TOKEN_NAME": TAIKO_TOKEN_NAME,
+                    "TAIKO_TOKEN_SYMBOL": TAIKO_TOKEN_SYMBOL,
+                    "SHARED_ADDRESS_MANAGER": SHARED_ADDRESS_MANAGER,
+                    "L2_GENESIS_HASH": L2_GENESIS_HASH,
+                    "PAUSE_TAIKO_L1": PAUSE_TAIKO_L1,
+                    "PAUSE_BRIDGE": PAUSE_BRIDGE,
+                    "NUM_MIN_MAJORITY_GUARDIANS": NUM_MIN_MAJORITY_GUARDIANS,
+                    "NUM_MIN_MINORITY_GUARDIANS": NUM_MIN_MINORITY_GUARDIANS,
+                    "TIER_PROVIDER": TIER_PROVIDER,
+                },
+                wait=None,
             )
+            plan.print("test")
+            plan.print(taiko.output)
             # Launch taiko stack
             # taiko_stack.launch(
 
