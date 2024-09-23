@@ -671,7 +671,7 @@ def run(plan, args={}):
                 description="Deploying taiko smart contract",
                 run="script/test_deploy_on_l1.sh",
                 # image=taiko_params.taiko_deploy_image,
-                image="nethswitchboard/taiko-deploy:e2e"
+                image="nethswitchboard/taiko-deploy:e2e",
                 env_vars = {
                     "PRIVATE_KEY": PRIVATE_KEY,
                     "FORK_URL": fuzz_target,
