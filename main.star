@@ -661,17 +661,17 @@ def run(plan, args={}):
             NUM_MIN_MINORITY_GUARDIANS=2
             TIER_PROVIDER="devnet"
             taiko = plan.run_sh(
-                run="mkdir -p kurtosis && echo $(ls)",
-                name="curl-job",
-                image="nethswitchboard/taiko-deploy:e2e",
-                wait=None,
-                description="running sh script",
-            )
-            #     name="deploy-taiko-contract",
-            #     description="Deploying taiko smart contract",
-            #     run="script/test_deploy_on_l1.sh",
-            #     # image=taiko_params.taiko_deploy_image,
+            #     run="mkdir -p kurtosis && echo $(ls)",
+            #     name="curl-job",
             #     image="nethswitchboard/taiko-deploy:e2e",
+            #     wait=None,
+            #     description="running sh script",
+            # )
+                name="deploy-taiko-contract",
+                description="Deploying taiko smart contract",
+                run="script/test_deploy_on_l1.sh",
+                # image=taiko_params.taiko_deploy_image,
+                image="nethswitchboard/taiko-deploy:e2e",
             #     env_vars = {
             #         "PRIVATE_KEY": PRIVATE_KEY,
             #         "FORK_URL": fuzz_target,
@@ -694,10 +694,10 @@ def run(plan, args={}):
             #         "NUM_MIN_MINORITY_GUARDIANS": NUM_MIN_MINORITY_GUARDIANS,
             #         "TIER_PROVIDER": TIER_PROVIDER,
             #     },
-            #     wait=None,
-            # )
-            # plan.print("test")
-            # plan.print(taiko.output)
+                wait=None,
+            )
+            plan.print("test")
+            plan.print(taiko.output)
             # Launch taiko stack
             # taiko_stack.launch(
 
