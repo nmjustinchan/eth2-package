@@ -184,6 +184,16 @@ SUBCATEGORY_PARAMS = {
         "mev_flood_seconds_per_bundle",
         "custom_flood_params",
     ],
+    "taiko_params": [
+        "taiko_deploy_image",
+        "taiko_geth_image",
+        "taiko_client_image",
+    ],
+    "preconf_params": [
+        "avs_deploy_image",
+        "preconf_avs_image",
+        "preconf_bootnode_image",
+    ],
     "xatu_sentry_params": [
         "xatu_sentry_image",
         "xatu_server_addr",
@@ -219,6 +229,8 @@ ADDITIONAL_SERVICES_PARAMS = [
     "forky",
     "apache",
     "tracoor",
+    "taiko_stack",
+    "preconf_avs",
 ]
 
 ADDITIONAL_CATEGORY_PARAMS = {

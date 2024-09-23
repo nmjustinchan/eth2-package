@@ -55,6 +55,12 @@ get_prefunded_accounts = import_module(
     "./src/prefunded_accounts/get_prefunded_accounts.star"
 )
 
+# Preconf AVS
+taiko_contract_deployer = import_module("./src/contracts/taiko.star")
+eigenlayer_mvp_deployer = import_module("./src/contracts/eigenlayer_mvp.star")
+avs_contract_deployer = import_module("./src/contracts/avs.star")
+sequencer_deployer = import_module("./src/contracts/sequencer.star")
+
 GRAFANA_USER = "admin"
 GRAFANA_PASSWORD = "admin"
 GRAFANA_DASHBOARD_PATH_URL = "/d/QdTOwy-nz/eth2-merge-kurtosis-module-dashboard?orgId=1"
@@ -78,6 +84,8 @@ def run(plan, args={}):
     num_participants = len(args_with_right_defaults.participants)
     network_params = args_with_right_defaults.network_params
     mev_params = args_with_right_defaults.mev_params
+    taiko_params = args_with_right_defaults.taiko_params
+    preconf_params = args_with_right_defaults.preconf_params
     parallel_keystore_generation = args_with_right_defaults.parallel_keystore_generation
     persistent = args_with_right_defaults.persistent
     xatu_sentry_params = args_with_right_defaults.xatu_sentry_params
@@ -625,6 +633,44 @@ def run(plan, args={}):
                 args_with_right_defaults.custom_flood_params,
                 global_node_selectors,
             )
+        elif additional_service == "taiko_stack":
+            plan.print("Launching taiko")
+            # Deploy taiko smart contracts
+            taiko_contract_deployer.deploy(
+                plan,
+                taiko_params,
+                fuzz_target,
+            )
+            # Launch taiko stack
+            # taiko_stack.launch(
+
+            # )
+            plan.print("Successfully launched taiko")
+        elif additional_service == "preconf_avs":
+            plan.print("Launching preconfirmation AVS")
+            # Deploy EigenLayer MVP
+            # eigenlayer_mvp_deployer.deploy(
+            #     plan,
+            #     network_params,
+            #     fuzz_target,
+            # )
+            # Deploy AVS smart contracts
+            # avs_contract_deployer.deploy(
+            #     plan,
+            #     network_params,
+            #     fuzz_target,
+            #     final_genesis_timestamp,
+            # )
+            # Deploy Sequencer
+            # sequencer_deployer.deploy(
+            #     plan,
+            #     network_params,
+            #     fuzz_target,
+            # )
+            # Launch Preconf AVS
+            # preconf_avs.launch(
+
+            # )
         else:
             fail("Invalid additional service %s" % (additional_service))
     if launch_prometheus_grafana:

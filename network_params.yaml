@@ -88,6 +88,7 @@ network_params:
   prefunded_accounts: {}
 additional_services:
   - blockscout
+  - taiko_stack
 dora_params:
   image: ""
 tx_spammer_params:
@@ -130,6 +131,14 @@ mev_params:
   mev_flood_seconds_per_bundle: 15
   custom_flood_params:
     interval_between_transactions: 1
+taiko_params:
+  taiko_deploy_image: nethswitchboard/taiko-deploy:e2e
+  taiko_geth_image: nethswitchboard/taiko-geth:e2e
+  taiko_client_image: nethswitchboard/taiko-client:e2e
+preconf_params:
+  avs_deploy_image: nethswitchboard/avs-deploy:e2e
+  preconf_avs_image: nethswitchboard/avs-node:e2e
+  preconf_bootnode_image: nethswitchboard/bootnodep2p:e2e
 xatu_sentry_enabled: false
 xatu_sentry_params:
   xatu_sentry_image: ethpandaops/xatu-sentry

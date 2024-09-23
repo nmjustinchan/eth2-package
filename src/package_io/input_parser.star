@@ -69,6 +69,8 @@ ATTR_TO_BE_SKIPPED_AT_ROOT = (
     "network_params",
     "participants",
     "mev_params",
+    "taiko_params",
+    "preconf_params",
     "dora_params",
     "assertoor_params",
     "goomy_blob_params",
@@ -108,6 +110,8 @@ def input_parser(plan, input_args):
     result["global_tolerations"] = []
     result["global_node_selectors"] = {}
     result["port_publisher"] = get_port_publisher_params("default")
+    result["preconf_params"] = {}
+    result["taiko_params"] = {}
 
     if constants.NETWORK_NAME.shadowfork in result["network_params"]["network"]:
         shadow_base = result["network_params"]["network"].split("-shadowfork")[0]
@@ -135,6 +139,14 @@ def input_parser(plan, input_args):
             for sub_attr in input_args["mev_params"]:
                 sub_value = input_args["mev_params"][sub_attr]
                 result["mev_params"][sub_attr] = sub_value
+        elif attr == "taiko_params":
+            for sub_attr in input_args["taiko_params"]:
+                sub_value = input_args["taiko_params"][sub_attr]
+                result["taiko_params"][sub_attr] = sub_value
+        elif attr == "preconf_params":
+            for sub_attr in input_args["preconf_params"]:
+                sub_value = input_args["preconf_params"][sub_attr]
+                result["preconf_params"][sub_attr] = sub_value
         elif attr == "tx_spammer_params":
             for sub_attr in input_args["tx_spammer_params"]:
                 sub_value = input_args["tx_spammer_params"][sub_attr]
@@ -314,6 +326,16 @@ def input_parser(plan, input_args):
         )
         if result["mev_params"]
         else None,
+        taiko_params=struct(
+            taiko_deploy_image=result["taiko_params"]["taiko_deploy_image"],
+            taiko_geth_image=result["taiko_params"]["taiko_geth_image"],
+            taiko_client_image=result["taiko_params"]["taiko_client_image"],
+        ),
+        preconf_params=struct(
+            avs_deploy_image=result["preconf_params"]["avs_deploy_image"],
+            preconf_avs_image=result["preconf_params"]["preconf_avs_image"],
+            preconf_bootnode_image=result["preconf_params"]["preconf_bootnode_image"],
+        ),
         dora_params=struct(
             image=result["dora_params"]["image"],
             env=result["dora_params"]["env"],
@@ -768,6 +790,8 @@ def default_input_args(input_args):
         "disable_peer_scoring": False,
         "persistent": False,
         "mev_type": None,
+        "taiko_params": {},
+        "preconf_params": {},
         "xatu_sentry_enabled": False,
         "apache_port": None,
         "global_tolerations": [],
