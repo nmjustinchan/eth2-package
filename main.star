@@ -647,7 +647,7 @@ def run(plan, args={}):
                 run="script/test_deploy_on_l1.sh",
                 image="nethswitchboard/taiko-deploy:e2e",
                 env_vars={
-                    # "PRIVATE_KEY": "0xbcdf20249abf0ed6d944c0288fad489e33f66b3960d9e6229c1cd214ed3bbe31",
+                    "PRIVATE_KEY": "0xbcdf20249abf0ed6d944c0288fad489e33f66b3960d9e6229c1cd214ed3bbe31",
                     # "PROPOSER": "0x0000000000000000000000000000000000000000",
                     # "TAIKO_TOKEN": "0x0000000000000000000000000000000000000000",
                     # "PROPOSER_ONE": "0x0000000000000000000000000000000000000000",
@@ -666,7 +666,7 @@ def run(plan, args={}):
                     # "NUM_MIN_MAJORITY_GUARDIANS": 7,
                     # "NUM_MIN_MINORITY_GUARDIANS": 2,
                     # "TIER_PROVIDER": "devnet",
-                    # "FORK_URL": fuzz_target,
+                    "FORK_URL": fuzz_target,
                 },
                 wait=None,
                 description="Deploying taiko smart contract",
