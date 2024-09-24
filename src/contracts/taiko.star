@@ -30,7 +30,7 @@ def deploy(
             "NUM_MIN_MAJORITY_GUARDIANS": "7",
             "NUM_MIN_MINORITY_GUARDIANS": "2",
             "TIER_PROVIDER": "devnet",
-            "FORK_URL": fuzz_target,
+            "FORK_URL": el_uri,
         },
         wait=None,
         description="Deploying taiko smart contract",
