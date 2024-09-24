@@ -30,7 +30,7 @@ participants:
     vc_type: lighthouse
     vc_image: sigp/lighthouse:latest-unstable
     vc_log_level: ""
-    vc_count: 4
+    vc_count: 2
     vc_extra_env_vars: {}
     vc_extra_labels: {}
     vc_extra_params: []
@@ -43,7 +43,7 @@ participants:
 # participant specific
     node_selectors: {}
     tolerations: []
-    count: 2
+    count: 1
     snooper_enabled: false
     ethereum_metrics_exporter_enabled: false
     xatu_sentry_enabled: false

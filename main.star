@@ -644,36 +644,40 @@ def run(plan, args={}):
             # )
 
             # Launch taiko stack
-            l2_taiko.launch(
-                plan,
-                all_el_contexts[0],
-                all_cl_contexts[0],
-            )
+            # l2_taiko.launch(
+            #     plan,
+            #     all_el_contexts[0],
+            #     all_cl_contexts[0],
+            # )
             plan.print("Successfully launched taiko")
         elif additional_service == "preconf_avs":
             plan.print("Launching preconfirmation AVS")
             # Deploy EigenLayer MVP
-            eigenlayer_mvp_deployer.deploy(
-                plan,
-                network_params,
-                fuzz_target,
-            )
+            # eigenlayer_mvp_deployer.deploy(
+            #     plan,
+            #     network_params,
+            #     fuzz_target,
+            # )
             # Deploy AVS smart contracts
-            avs_contract_deployer.deploy(
-                plan,
-                network_params,
-                fuzz_target,
-                final_genesis_timestamp,
-            )
+            # avs_contract_deployer.deploy(
+            #     plan,
+            #     network_params,
+            #     fuzz_target,
+            #     final_genesis_timestamp,
+            # )
             # Deploy Sequencer
-            sequencer_deployer.deploy(
-                plan,
-                network_params,
-                fuzz_target,
-            )
+            # sequencer_deployer.deploy(
+            #     plan,
+            #     network_params,
+            #     fuzz_target,
+            # )
+            plan.print(all_mevboost_contexts[0])
             # Launch Preconf AVS
             # preconf_avs.launch(
-
+            #     plan,
+            #     network_id,
+            #     all_el_contexts[0],
+            #     all_cl_contexts[0],
             # )
         else:
             fail("Invalid additional service %s" % (additional_service))
