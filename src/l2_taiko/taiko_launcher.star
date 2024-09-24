@@ -7,7 +7,7 @@ def launch(
     el_context,
     cl_context,
 ):
-    plan.add_service(
+    geth = plan.add_service(
         name = "taiko-geth",
         config = ServiceConfig(
             image = "nethswitchboard/taiko-geth:e2e",
@@ -37,11 +37,11 @@ def launch(
                 "--gpo.ignoreprice=100000000",
                 "--port=30306",
                 "--discovery.port=30306",
-            ]
-        )
+            ],
+        ),
     )
 
-    plan.add_service(
+    driver = plan.add_service(
         name = "taiko-driver",
         config = ServiceConfig(
             image = "nethswitchboard/taiko-client:e2e",
@@ -59,11 +59,11 @@ def launch(
                 "--taikoL2=0x1670000000000000000000000000000000010001",
                 "--jwtSecret /data/taiko-geth/geth/jwtsecret",
                 "--verbosity 4",
-            ]
-        )
+            ],
+        ),
     )
 
-    plan.add_service(
+    proposer = plan.add_service(
         name = "taiko-proposer",
         config = ServiceConfig(
             image = "nethswitchboard/taiko-client:e2e",
@@ -72,7 +72,7 @@ def launch(
             },
             cmd = [
                 "--l1.ws=" + el_context[0].ws_url,
-                "--l2.http http://taiko-geth:8545"
+                "--l2.http http://taiko-geth:8545",
                 "--l2.auth http://taiko-geth:8551",
                 "--taikoL1=0x086f77C5686dfe3F2f8FE487C5f8d357952C8556",
                 "--taikoL2=0x1670000000000000000000000000000000010001",
@@ -85,6 +85,6 @@ def launch(
                 "--tierFee.sgx=1",
                 "--l1.blobAllowed",
                 "--tx.gasLimit=3000000",
-            ]
-        )
+            ],
+        ),
     )
