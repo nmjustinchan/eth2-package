@@ -12,9 +12,9 @@ def launch(
         config = ServiceConfig(
             image = "nethswitchboard/taiko-geth:e2e",
             ports = {
-                "6060":"6060",
-                "8547":"8545",
-                "8548":"8546",
+                "6060:6060",
+                "8547:8545",
+                "8548:8546",
             },
             cmd = [
                 "--taiko",
@@ -46,7 +46,7 @@ def launch(
         config = ServiceConfig(
             image = "nethswitchboard/taiko-client:e2e",
             ports = {
-                "1235":"1235",
+                "1235:1235",
             },
             cmd = [
                 "--taiko",
@@ -68,7 +68,7 @@ def launch(
         config = ServiceConfig(
             image = "nethswitchboard/taiko-client:e2e",
             ports = {
-                "1234":"1234",
+                "1234:1234",
             },
             cmd = [
                 "--l1.ws=" + el_context[0].ws_url,
