@@ -35,5 +35,26 @@ def deploy(
         wait=None,
         description="Deploying taiko smart contract",
     )
-    plan.print("test")
-    plan.print(taiko.output)
+
+    return taiko_contract_output(
+        taiko.output
+    )
+
+def taiko_contract_output(
+    taiko_output
+):
+    taikoL1 = ""
+    sharedAddressManager = ""
+
+    taiko_lines = [line for line in taiko_output.split("\n") if "taiko @ " in line]
+    if taiko_lines:
+        taikoL1 = taiko_lines[0].split("@")[1].strip()
+
+    shared_address_lines = [line for line in taiko_output.split("\n") if "sharedAddressManager:" in line]
+    if shared_address_lines:
+        sharedAddressManager = shared_address_lines[0].split(":")[1].strip()
+
+    return struct(
+        l1_taiko_address=taikoL1,
+        shared_address_manager=sharedAddressManager,
+    )

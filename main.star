@@ -637,19 +637,19 @@ def run(plan, args={}):
         elif additional_service == "taiko_stack":
             plan.print("Launching taiko")
             # Deploy taiko smart contracts
-            # taiko_contract_deployer.deploy(
-            #     plan,
-            #     taiko_params,
-            #     fuzz_target,
-            # )
-
+            taiko_contract_context = taiko_contract_deployer.deploy(
+                plan,
+                taiko_params,
+                fuzz_target,
+            )
+            plan.print(taiko_contract_context)
             # Launch taiko stack
             # l2_taiko.launch(
             #     plan,
             #     all_el_contexts[0],
             #     all_cl_contexts[0],
             # )
-            plan.print("Successfully launched taiko")
+            # plan.print("Successfully launched taiko")
         elif additional_service == "preconf_avs":
             plan.print("Launching preconfirmation AVS")
             # Deploy EigenLayer MVP
@@ -666,12 +666,12 @@ def run(plan, args={}):
             #     final_genesis_timestamp,
             # )
             # Deploy Sequencer
-            # sequencer_deployer.deploy(
+            # sequencer_contract_context = sequencer_deployer.deploy(
             #     plan,
             #     network_params,
             #     fuzz_target,
             # )
-            plan.print(all_mevboost_contexts[0])
+            # plan.print(all_mevboost_contexts[0])
             # Launch Preconf AVS
             # preconf_avs.launch(
             #     plan,

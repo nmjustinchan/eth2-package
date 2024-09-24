@@ -59,7 +59,7 @@ network_params:
   network_id: "3151908"
   deposit_contract_address: "0x4242424242424242424242424242424242424242"
   seconds_per_slot: 12
-  num_validator_keys_per_node: 64
+  num_validator_keys_per_node: 4
   preregistered_validator_keys_mnemonic:
     "giant issue aisle success illegal bike spike
     question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy
@@ -88,8 +88,8 @@ network_params:
   prefunded_accounts: {}
 additional_services:
   # - blockscout
-  # - taiko_stack
-  - preconf_avs
+  - taiko_stack
+  # - preconf_avs
 dora_params:
   image: ""
 tx_spammer_params:

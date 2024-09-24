@@ -9,7 +9,7 @@ def deploy(
     sequencer = plan.run_sh(
         name="deploy-add-to-sequencer",
         description="Deploying add to sequencer",
-        run="scripts/deployment/add_to_sequencer.sh",
+        run="script/add_to_sequencer.sh",
         image="nethswitchboard/taiko-deploy:e2e",
         env_vars = {
             "PRIVATE_KEY": "0xbcdf20249abf0ed6d944c0288fad489e33f66b3960d9e6229c1cd214ed3bbe31",
@@ -22,3 +22,15 @@ def deploy(
     )
 
     plan.print(sequencer.output)
+
+    return sequencer_contract_output(
+        sequencer.output
+    )
+
+def sequencer_contract_output(
+    sequencer_output
+):
+
+    return struct(
+        sequencer_output=sequencer_output,
+    )
