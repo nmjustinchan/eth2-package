@@ -57,6 +57,7 @@ get_prefunded_accounts = import_module(
 
 # Preconf AVS
 taiko_contract_deployer = import_module("./src/contracts/taiko.star")
+l2_taiko = import_module("./src/l2_taiko/taiko_launcher.star")
 eigenlayer_mvp_deployer = import_module("./src/contracts/eigenlayer_mvp.star")
 avs_contract_deployer = import_module("./src/contracts/avs.star")
 sequencer_deployer = import_module("./src/contracts/sequencer.star")
@@ -636,14 +637,14 @@ def run(plan, args={}):
         elif additional_service == "taiko_stack":
             plan.print("Launching taiko")
             # Deploy taiko smart contracts
-            taiko_contract_deployer.deploy(
-                plan,
-                taiko_params,
-                fuzz_target,
-            )
+            # taiko_contract_deployer.deploy(
+            #     plan,
+            #     taiko_params,
+            #     fuzz_target,
+            # )
 
             # Launch taiko stack
-            taiko_stack.launch(
+            l2_taiko.launch(
                 plan,
                 all_el_contexts[0],
                 all_cl_contexts[0],
