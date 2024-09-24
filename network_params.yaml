@@ -87,8 +87,9 @@ network_params:
   devnet_repo: ethpandaops
   prefunded_accounts: {}
 additional_services:
-  - blockscout
+  # - blockscout
   - taiko_stack
+  - preconf_avs
 dora_params:
   image: ""
 tx_spammer_params:
