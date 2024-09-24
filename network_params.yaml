@@ -88,7 +88,7 @@ network_params:
   prefunded_accounts: {}
 additional_services:
   # - blockscout
-  - taiko_stack
+  # - taiko_stack
   - preconf_avs
 dora_params:
   image: ""
