@@ -213,7 +213,6 @@ def run(plan, args={}):
             broadcaster_service.ip_address,
             broadcaster.PORT,
         )
-
     mev_endpoints = []
     mev_endpoint_names = []
     # passed external relays get priority
@@ -262,14 +261,14 @@ def run(plan, args={}):
         first_cl_client = all_cl_contexts[0]
         first_client_beacon_name = first_cl_client.beacon_service_name
         contract_owner, normal_user = prefunded_accounts[6:8]
-        mev_flood.launch_mev_flood(
-            plan,
-            mev_params.mev_flood_image,
-            fuzz_target,
-            contract_owner.private_key,
-            normal_user.private_key,
-            global_node_selectors,
-        )
+        # mev_flood.launch_mev_flood(
+        #     plan,
+        #     mev_params.mev_flood_image,
+        #     fuzz_target,
+        #     contract_owner.private_key,
+        #     normal_user.private_key,
+        #     global_node_selectors,
+        # )
         epoch_recipe = GetHttpRequestRecipe(
             endpoint="/eth/v2/beacon/blocks/head",
             port_id=HTTP_PORT_ID_FOR_FACT,
@@ -307,14 +306,14 @@ def run(plan, args={}):
         else:
             fail("Invalid MEV type")
 
-        mev_flood.spam_in_background(
-            plan,
-            fuzz_target,
-            mev_params.mev_flood_extra_args,
-            mev_params.mev_flood_seconds_per_bundle,
-            contract_owner.private_key,
-            normal_user.private_key,
-        )
+        # mev_flood.spam_in_background(
+        #     plan,
+        #     fuzz_target,
+        #     mev_params.mev_flood_extra_args,
+        #     mev_params.mev_flood_seconds_per_bundle,
+        #     contract_owner.private_key,
+        #     normal_user.private_key,
+        # )
         mev_endpoints.append(endpoint)
         mev_endpoint_names.append(args_with_right_defaults.mev_type)
 
@@ -637,12 +636,11 @@ def run(plan, args={}):
         elif additional_service == "taiko_stack":
             plan.print("Launching taiko")
             # Deploy taiko smart contracts
-            taiko_contract_context = taiko_contract_deployer.deploy(
-                plan,
-                taiko_params,
-                fuzz_target,
-            )
-            plan.print(taiko_contract_context)
+            # taiko_contract_deployer.deploy(
+            #     plan,
+            #     fuzz_target,
+            # )
+            # plan.print(taiko_contract_context)
             # Launch taiko stack
             # l2_taiko.launch(
             #     plan,
