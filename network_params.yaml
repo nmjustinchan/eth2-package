@@ -87,8 +87,8 @@ network_params:
   devnet_repo: ethpandaops
   prefunded_accounts: {}
 additional_services:
-  # - blockscout
-  - taiko_stack
+  - blockscout
+  # - taiko_stack
   # - preconf_avs
 dora_params:
   image: ""
@@ -105,7 +105,7 @@ assertoor_params:
   run_opcodes_transaction_test: false
   run_lifecycle_test: false
   tests: []
-wait_for_finalization: false
+wait_for_finalization: true
 global_log_level: info
 snooper_enabled: false
 ethereum_metrics_exporter_enabled: false
