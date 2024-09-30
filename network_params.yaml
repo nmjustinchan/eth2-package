@@ -59,7 +59,7 @@ network_params:
   network_id: "3151908"
   deposit_contract_address: "0x4242424242424242424242424242424242424242"
   seconds_per_slot: 12
-  num_validator_keys_per_node: 4
+  num_validator_keys_per_node: 8
   preregistered_validator_keys_mnemonic:
     "giant issue aisle success illegal bike spike
     question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy
@@ -87,9 +87,9 @@ network_params:
   devnet_repo: ethpandaops
   prefunded_accounts: {}
 additional_services:
-  - blockscout
-  # - taiko_stack
-  # - preconf_avs
+  # - blockscout
+  - taiko_stack
+  - preconf_avs
 dora_params:
   image: ""
 tx_spammer_params:
@@ -175,3 +175,9 @@ port_publisher:
   additional_services:
     enabled: true
     public_port_start: 35000
+  taiko:
+    enabled: true
+    public_port_start: 36000
+  preconf_avs:
+    enabled: true
+    public_port_start: 37000

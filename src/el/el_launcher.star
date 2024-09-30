@@ -165,5 +165,4 @@ def launch(
 
         all_el_contexts.append(el_context)
 
-    plan.print("Successfully added {0} EL participants".format(num_participants))
     return all_el_contexts

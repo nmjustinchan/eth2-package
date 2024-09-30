@@ -1,21 +1,19 @@
-shared_utils = import_module("../shared_utils/shared_utils.star")
-input_parser = import_module("../package_io/input_parser.star")
-
 def deploy(
     plan,
-    network_params,
-    el_uri,
+    el_rpc_url,
+    contract_owner,
 ):
     eigenlayer_mvp = plan.run_sh(
         name="deploy-eigenlayer-contract",
         description="Deploying eigenlayer mvp contract",
-        run="scripts/deployment/deploy_eigenlayer_mvp.sh",
+        run="scripts/deployment/deploy_eigenlayer_mvp.sh > /tmp/eigenlayer-mvp-output.txt",
         image="nethswitchboard/avs-deploy:e2e",
         env_vars = {
-            "PRIVATE_KEY": "0xbcdf20249abf0ed6d944c0288fad489e33f66b3960d9e6229c1cd214ed3bbe31",
-            "FORK_URL": el_uri,
+            "PRIVATE_KEY": "0x{0}".format(contract_owner.private_key),
+            "FORK_URL": el_rpc_url,
         },
         wait=None,
+        store=[
+            "/tmp/eigenlayer-mvp-output.txt"
+        ],
     )
-
-    plan.print(eigenlayer_mvp.output)

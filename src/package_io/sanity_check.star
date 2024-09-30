@@ -207,6 +207,8 @@ SUBCATEGORY_PARAMS = {
         "cl",
         "vc",
         "additional_services",
+        "taiko",
+        "preconf_avs",
     ],
 }
 

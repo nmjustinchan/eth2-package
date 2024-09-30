@@ -1055,6 +1055,8 @@ def get_port_publisher_params(parameter_type, input_args=None):
         "cl": {"enabled": False, "public_port_start": 33000},
         "vc": {"enabled": False, "public_port_start": 34000},
         "additional_services": {"enabled": False, "public_port_start": 35000},
+        "taiko": {"enabled": False, "public_port_start": 36000},
+        "preconf_avs": {"enabled": False, "public_port_start": 37000},
     }
     if parameter_type == "default":
         return port_publisher_parameters
